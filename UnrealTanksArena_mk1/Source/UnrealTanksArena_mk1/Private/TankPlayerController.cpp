@@ -7,13 +7,9 @@
 void ATankPlayerController::BeginPlay(){
     Super::BeginPlay();
     ATank* Controlled = GetControlledTank();
-    if(Controlled){
-        UE_LOG(LogTemp,Warning,TEXT("Żyje kurla %s"),*(Controlled->GetName()))
-    }
-    else{
+    if(!Controlled){
         UE_LOG(LogTemp,Warning,TEXT("Kontroller znowu sie poebal"))
     }
-    
 }
 
 void ATankPlayerController::Tick(float DeltaTime){
@@ -32,7 +28,7 @@ void ATankPlayerController::AimingToThePoint(){
     }
     FVector HitLocation;
     if(GetSightRayHitLocation(HitLocation)){
-        UE_LOG(LogTemp,Warning,TEXT("Hit Location: %s"),*(HitLocation.ToString()))
+        GetControlledTank()->AimAt(HitLocation);
     }
 
 }

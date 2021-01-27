@@ -14,18 +14,24 @@ ATank* ATankAIController::GetPlayerTank() const{
 void ATankAIController::BeginPlay(){
     Super::BeginPlay();
     ATank* Controlled=GetControlledTank();
-    ATank* Found=GetPlayerTank();
-    if(Controlled){
-        UE_LOG(LogTemp,Warning,TEXT("AI zyje kurla: %s"),*(Controlled->GetName()))
-    }
-    else{
-        UE_LOG(LogTemp,Warning,TEXT("AI sie poebao"))
-    }
     
-    if(Found){
-        UE_LOG(LogTemp,Warning,TEXT("AI widzi cie: %s"),*(Found->GetName()))
+    if(!Controlled){
+        UE_LOG(LogTemp,Warning,TEXT("AI controller can't find tank"))
     }
-    else{
-        UE_LOG(LogTemp,Warning,TEXT("AI osleplo"))
+}
+
+void ATankAIController::Tick(float DeltaTime){
+    Super::Tick(DeltaTime);
+    
+    ATank* Found=GetPlayerTank();
+    if(Found){
+        AimingToThePoint(Found->GetActorLocation());
+    }
+}
+
+void ATankAIController::AimingToThePoint(FVector HitPosition){
+    ATank* Controlled=GetControlledTank();
+    if(Controlled){
+        Controlled->AimAt(HitPosition);
     }
 }
