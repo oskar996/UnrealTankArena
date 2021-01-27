@@ -32,7 +32,7 @@ void ATankPlayerController::AimingToThePoint(){
     }
     FVector HitLocation;
     if(GetSightRayHitLocation(HitLocation)){
-        //UE_LOG(LogTemp,Warning,TEXT("Hit Location: %s"),*(HitLocation.ToString()))
+        UE_LOG(LogTemp,Warning,TEXT("Hit Location: %s"),*(HitLocation.ToString()))
     }
 
 }
@@ -46,8 +46,28 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation){
     FVector WorldLocation;
     FVector WorldDirection;
     if(DeprojectScreenPositionToWorld(CrossScreenLocation.X, CrossScreenLocation.Y,WorldLocation,WorldDirection)){
-        UE_LOG(LogTemp,Warning,TEXT("Aiming Vector: %s"),*(WorldDirection.ToString()))
+        if(GetLookHitVector(WorldDirection, HitLocation)){
+            return true;
+        }
     }
     
-    return true;
+    return false;
 }
+
+bool ATankPlayerController::GetLookHitVector(FVector WorldDirection, FVector &HitLocation){
+    FHitResult HitResult;
+    auto StartLocation = PlayerCameraManager->GetCameraLocation();
+    auto EndLocation = StartLocation + WorldDirection*HitRange;
+    
+    if(GetWorld()->LineTraceSingleByChannel(HitResult,StartLocation,EndLocation,ECollisionChannel::ECC_Visibility)){
+        HitLocation=HitResult.Location;
+        return true;
+    }
+    return false;
+}
+
+
+
+
+
+

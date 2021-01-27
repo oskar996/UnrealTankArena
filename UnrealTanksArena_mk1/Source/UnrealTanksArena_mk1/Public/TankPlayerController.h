@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Tank.h"
+#include "Engine/World.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
@@ -20,10 +21,14 @@ class UNREALTANKSARENA_MK1_API ATankPlayerController : public APlayerController
 	ATank* GetControlledTank() const;
 	void AimingToThePoint();
 	bool GetSightRayHitLocation(FVector& HitLocation);
+	bool GetLookHitVector(FVector WorldDirection, FVector &HitLocation);
 
 	UPROPERTY(EditAnywhere)
 	float CrossXLocation = 0.5f;
 	
 	UPROPERTY(EditAnywhere)
 	float CrossYLocation = 0.3333f;
+
+	UPROPERTY(EditAnywhere)
+	float HitRange = 1000000;
 };
