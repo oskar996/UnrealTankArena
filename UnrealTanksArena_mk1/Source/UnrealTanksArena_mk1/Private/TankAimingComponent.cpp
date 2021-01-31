@@ -25,10 +25,25 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UTankAimingComponent::AimAt(FVector AimPosition){
-	UE_LOG(LogTemp,Warning,TEXT("%s is aiming at the location %s from %s"),*(GetOwner()->GetName()),*(AimPosition.ToString()),*(Barrel->GetComponentLocation().ToString()))
+void UTankAimingComponent::AimAt(FVector AimPosition, float VelocityOfProjectile){
+	if(!Barrel){
+		return;
+	}
+
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	FVector AimVelocityVector;
+	
+	if(UGameplayStatics::SuggestProjectileVelocity(this,AimVelocityVector,StartLocation,AimPosition,VelocityOfProjectile,false,0,0,ESuggestProjVelocityTraceOption::DoNotTrace)){
+		MoveBarrel(AimVelocityVector.GetSafeNormal());
+	}
 }
 
-void UTankAimingComponent::SetBarrelLocation(UStaticMeshComponent* BarrelToSet){
+void UTankAimingComponent::SetBarrelLocation(UTankBarrel* BarrelToSet){
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::MoveBarrel(FVector AimVelocityVector){
+	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
+	FRotator AimRotation = AimVelocityVector.Rotation();
+	Barrel->Elevate(5);
 }

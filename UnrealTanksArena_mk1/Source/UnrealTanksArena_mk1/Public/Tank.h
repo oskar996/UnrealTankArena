@@ -8,6 +8,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+class UTankBarrel;
+
 UCLASS()
 class UNREALTANKSARENA_MK1_API ATank : public APawn
 {
@@ -26,12 +28,16 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
+	UPROPERTY(EditAnywhere,Category = Firing)
+	float ProjectileVelocity = 100000.0;
+
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 public:
 	UFUNCTION(BlueprintCallable,Category = Setup)
-	void SetBarrelLocation(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelLocation(UTankBarrel* BarrelToSet);
 	
 	void AimAt(FVector Position);
+
 };

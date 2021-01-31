@@ -33,9 +33,9 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 void ATank::AimAt(FVector Position){
-	TankAimingComponent->AimAt(Position);
+	TankAimingComponent->AimAt(Position,ProjectileVelocity);
 }
 
-void ATank::SetBarrelLocation(UStaticMeshComponent* BarrelToSet){
+void ATank::SetBarrelLocation(UTankBarrel* BarrelToSet){
 	TankAimingComponent->SetBarrelLocation(BarrelToSet);
 }

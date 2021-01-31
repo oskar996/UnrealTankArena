@@ -2,11 +2,14 @@
 
 #pragma once
 
+#include "TankBarrel.h"
+#include "Kismet/GameplayStatics.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Actor.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
+
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -20,13 +23,14 @@ public:
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void AimAt(FVector AimPosition);
-	void SetBarrelLocation(UStaticMeshComponent* BarrelToSet);
+	void AimAt(FVector AimPosition,float VelocityOfProjectile);
+	void SetBarrelLocation(UTankBarrel* BarrelToSet);
+	void MoveBarrel(FVector AimVelocityVector);
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 private:
-	UStaticMeshComponent* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr;
 };
