@@ -2,6 +2,8 @@
 
 #pragma once
 
+
+#include "TankAimingComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
@@ -23,7 +25,13 @@ private:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+protected:
+	UTankAimingComponent* TankAimingComponent = nullptr;
 
 public:
+	UFUNCTION(BlueprintCallable,Category = Setup)
+	void SetBarrelLocation(UStaticMeshComponent* BarrelToSet);
+	
 	void AimAt(FVector Position);
 };
