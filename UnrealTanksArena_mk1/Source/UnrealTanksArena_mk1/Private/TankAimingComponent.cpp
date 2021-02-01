@@ -33,8 +33,11 @@ void UTankAimingComponent::AimAt(FVector AimPosition, float VelocityOfProjectile
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	FVector AimVelocityVector;
 	
-	if(UGameplayStatics::SuggestProjectileVelocity(this,AimVelocityVector,StartLocation,AimPosition,VelocityOfProjectile,false,0,0,ESuggestProjVelocityTraceOption::DoNotTrace)){
+	if(UGameplayStatics::SuggestProjectileVelocity(this,AimVelocityVector,StartLocation,AimPosition,VelocityOfProjectile,false,0,0,ESuggestProjVelocityTraceOption::DoNotTrace))
+	{
 		MoveBarrel(AimVelocityVector.GetSafeNormal());
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp,Warning,TEXT("%f Dziala %s"),Time,*AimPosition.ToString())	
 	}
 }
 
@@ -45,5 +48,6 @@ void UTankAimingComponent::SetBarrelLocation(UTankBarrel* BarrelToSet){
 void UTankAimingComponent::MoveBarrel(FVector AimVelocityVector){
 	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
 	FRotator AimRotation = AimVelocityVector.Rotation();
-	Barrel->Elevate(5);
+	FRotator Delta = AimRotation - BarrelRotation;
+	Barrel->Elevate(Delta.Pitch);
 }

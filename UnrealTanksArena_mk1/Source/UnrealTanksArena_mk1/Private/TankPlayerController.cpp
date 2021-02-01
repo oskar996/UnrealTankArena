@@ -26,7 +26,7 @@ void ATankPlayerController::AimingToThePoint(){
         UE_LOG(LogTemp,Warning,TEXT("There is a problem with Aiming"))
         return;
     }
-    FVector HitLocation;
+    FVector HitLocation(0);
     if(GetSightRayHitLocation(HitLocation)){
         GetControlledTank()->AimAt(HitLocation);
     }
