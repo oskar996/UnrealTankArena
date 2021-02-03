@@ -43,3 +43,8 @@ void ATank::SetBarrelLocation(UTankBarrel* BarrelToSet){
 void ATank::SetTurrentLocation(UTankTurrent* TurrentToSet){
 	TankAimingComponent->SetTurrentLocation(TurrentToSet);
 }
+
+void ATank::Fire(){
+	auto Time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp,Warning,TEXT("%f Strzal"),Time)	
+}

@@ -45,4 +45,7 @@ public:
 
 	void AimAt(FVector Position);
 
+	UFUNCTION(BlueprintCallable,Category = Shoting)
+	void Fire();
+
 };

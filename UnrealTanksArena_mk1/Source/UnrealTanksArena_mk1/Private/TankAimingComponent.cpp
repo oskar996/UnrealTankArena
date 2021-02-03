@@ -37,8 +37,6 @@ void UTankAimingComponent::AimAt(FVector AimPosition, float VelocityOfProjectile
 	{
 		MoveBarrel(AimVelocityVector.GetSafeNormal());
 		MoveTurrent(AimVelocityVector.GetSafeNormal());
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp,Warning,TEXT("%f Dziala %s"),Time,*AimPosition.ToString())	
 	}
 }
 
