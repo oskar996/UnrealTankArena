@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "TankTurrent.h"
 #include "TankBarrel.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/StaticMeshComponent.h"
@@ -24,8 +25,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void AimAt(FVector AimPosition,float VelocityOfProjectile);
-	void SetBarrelLocation(UTankBarrel* BarrelToSet);
+	void SetBarrelLocation(UTankBarrel* BarrelToSet);			//TO DO:Change Names of the functions
+	void SetTurrentLocation(UTankTurrent* TurrentToSet);
 	void MoveBarrel(FVector AimVelocityVector);
+	void MoveTurrent(FVector AimVelocityVector);
 
 protected:
 	// Called when the game starts
@@ -33,4 +36,5 @@ protected:
 
 private:
 	UTankBarrel* Barrel = nullptr;
+	UTankTurrent* Turrent = nullptr;
 };

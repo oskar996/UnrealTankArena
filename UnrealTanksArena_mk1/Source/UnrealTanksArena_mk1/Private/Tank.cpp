@@ -39,3 +39,7 @@ void ATank::AimAt(FVector Position){
 void ATank::SetBarrelLocation(UTankBarrel* BarrelToSet){
 	TankAimingComponent->SetBarrelLocation(BarrelToSet);
 }
+
+void ATank::SetTurrentLocation(UTankTurrent* TurrentToSet){
+	TankAimingComponent->SetTurrentLocation(TurrentToSet);
+}

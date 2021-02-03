@@ -9,6 +9,7 @@
 #include "Tank.generated.h"
 
 class UTankBarrel;
+class UTankTurrent;
 
 UCLASS()
 class UNREALTANKSARENA_MK1_API ATank : public APawn
@@ -38,6 +39,10 @@ public:
 	UFUNCTION(BlueprintCallable,Category = Setup)
 	void SetBarrelLocation(UTankBarrel* BarrelToSet);
 	
+	UFUNCTION(BlueprintCallable,Category = Setup)
+	void SetTurrentLocation(UTankTurrent* TurrentToSet);
+	
+
 	void AimAt(FVector Position);
 
 };

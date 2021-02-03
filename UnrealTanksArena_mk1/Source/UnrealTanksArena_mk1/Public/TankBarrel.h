@@ -12,7 +12,7 @@ class UNREALTANKSARENA_MK1_API UTankBarrel : public UStaticMeshComponent
 	GENERATED_BODY()
 	
 	public:
-	void Elevate(float ElevateSpeed);
+	void Elevate(float Elevation);
 
 	private:
 	UPROPERTY(EditAnywhere, Category = Setup)

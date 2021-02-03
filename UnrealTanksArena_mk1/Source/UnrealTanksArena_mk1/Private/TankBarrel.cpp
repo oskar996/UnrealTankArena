@@ -3,11 +3,11 @@
 
 #include "TankBarrel.h"
 
-void UTankBarrel::Elevate(float ElevateSpeed){
+void UTankBarrel::Elevate(float Elevation){
     
-    ElevateSpeed = FMath::Clamp<float>(ElevateSpeed,-1,1);
-    auto ElevationChange = MaxMovingSpeed * ElevateSpeed * GetWorld()->DeltaTimeSeconds;
+    Elevation = FMath::Clamp<float>(Elevation,-1,1);
+    auto ElevationChange = MaxMovingSpeed * Elevation * GetWorld()->DeltaTimeSeconds;
     auto RawNewElevation = RelativeRotation.Pitch + ElevationChange;
-    auto Elevation = FMath::Clamp<float>(RawNewElevation,MinElevate ,MaxElevate);
-    SetRelativeRotation(FRotator(Elevation,0,0));
+    auto FinishElevation = FMath::Clamp<float>(RawNewElevation,MinElevate ,MaxElevate);
+    SetRelativeRotation(FRotator(FinishElevation,0,0));
 }
