@@ -15,12 +15,12 @@ class UNREALTANKSARENA_MK1_API UTankBarrel : public UStaticMeshComponent
 	void Elevate(float Elevation);
 
 	private:
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MaxMovingSpeed = 5;
 
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MaxElevate = 20;
 
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MinElevate = 0;
 };

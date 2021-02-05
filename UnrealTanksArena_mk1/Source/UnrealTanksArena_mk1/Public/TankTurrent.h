@@ -15,7 +15,7 @@ class UNREALTANKSARENA_MK1_API UTankTurrent : public UStaticMeshComponent
 	void RotatingTheTurrent(float Rotation);
 
 	private:
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MaxRotatingSpeed = 20;
 
 };

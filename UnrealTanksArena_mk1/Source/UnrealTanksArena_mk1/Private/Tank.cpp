@@ -46,14 +46,19 @@ void ATank::SetTurrentLocation(UTankTurrent* TurrentToSet){
 }
 
 void ATank::Fire(){
-	auto Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp,Warning,TEXT("%f Strzal"),Time)	
 
-	if(!Barrel){
+	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	if(Barrel && IsReloaded){
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,Barrel->GetSocketLocation(FName("Projectile")),Barrel->GetSocketRotation(FName("Projectile")));
+		Projectile->LaunchProjectile(ProjectileSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
+	else{
+
 		UE_LOG(LogTemp,Warning,TEXT("No Barrel Reference in Tank class %f"),*GetName())
 		return;
+
 	}
 
-	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,Barrel->GetSocketLocation(FName("Projectile")),Barrel->GetSocketRotation(FName("Projectile")));
-	Projectile->LaunchProjectile(ProjectileSpeed);
 }
