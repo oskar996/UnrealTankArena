@@ -33,11 +33,12 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 void ATank::AimAt(FVector Position){
-	TankAimingComponent->AimAt(Position,ProjectileVelocity);
+	TankAimingComponent->AimAt(Position,ProjectileSpeed);
 }
 
 void ATank::SetBarrelLocation(UTankBarrel* BarrelToSet){
 	TankAimingComponent->SetBarrelLocation(BarrelToSet);
+	Barrel = BarrelToSet;
 }
 
 void ATank::SetTurrentLocation(UTankTurrent* TurrentToSet){
@@ -47,4 +48,12 @@ void ATank::SetTurrentLocation(UTankTurrent* TurrentToSet){
 void ATank::Fire(){
 	auto Time = GetWorld()->GetTimeSeconds();
 	UE_LOG(LogTemp,Warning,TEXT("%f Strzal"),Time)	
+
+	if(!Barrel){
+		UE_LOG(LogTemp,Warning,TEXT("No Barrel Reference in Tank class %f"),*GetName())
+		return;
+	}
+
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,Barrel->GetSocketLocation(FName("Projectile")),Barrel->GetSocketRotation(FName("Projectile")));
+	Projectile->LaunchProjectile(ProjectileSpeed);
 }

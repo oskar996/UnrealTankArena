@@ -2,13 +2,13 @@
 
 #pragma once
 
-
+#include "Projectile.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
-class UTankBarrel;
 class UTankTurrent;
 
 UCLASS()
@@ -30,10 +30,15 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	UPROPERTY(EditAnywhere,Category = Firing)
-	float ProjectileVelocity = 100000.0;
+	float ProjectileSpeed = 4000.0;
+
+	UPROPERTY(EditAnywhere,Category = Setup)
+	TSubclassOf<AProjectile> ProjectileClass;
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	UTankBarrel* Barrel = nullptr;
 
 public:
 	UFUNCTION(BlueprintCallable,Category = Setup)
